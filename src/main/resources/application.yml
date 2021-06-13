@@ -16,10 +16,14 @@ resilience4j:
       service1:
         registerHealthIndicator: true
         slidingWindowSize: 100
-
 server:
   port: 9092
 issue:
   tracking:
     url: http://localhost:8080/v1/getIssues
     cronExpression: "0 */5 * * * *"
+logging:
+  file:
+    path: logs
+    name: logs/issueTracking.log
+
