@@ -1,0 +1,18 @@
+spring:
+  data:
+    mongodb:
+      database: allion_home_test
+      host: localhost
+      port: 27017
+resilience4j.ratelimiter:
+  instances:
+    service1:
+      limitForPeriod: 1
+      limitRefreshPeriod: 120000
+      timeoutDuration: 300000
+server:
+  port: 9092
+issue:
+  tracking:
+    url: http://localhost:8080/v1/getIssues
+    cronExpression: "0 */5 * * * *"

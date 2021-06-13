@@ -1,0 +1,46 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.1'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+
+    implementation group:'javax.validation', name: 'validation-api', version :'2.0.1.Final'
+//    implementation group: 'io.github.resilience4j', name: 'resilience4j-reactor', version: '1.6.1'
+//    implementation group: 'io.github.resilience4j', name: 'resilience4j-ratelimiter', version: '1.6.1'
+    implementation 'io.github.resilience4j:resilience4j-spring-boot2:1.6.1'
+
+    //Dependency for JSONObject which needs to marshal to jsonString
+    implementation group: 'org.json', name: 'json', version: '20210307'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+    testImplementation 'io.projectreactor:reactor-test'
+}
+
+test {
+    useJUnitPlatform()
+}
