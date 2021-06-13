@@ -29,3 +29,4 @@ Guide Lines
           Mongo database is used in this project. "allion_home_test", localhost are the values for  database and  url respectively.if the database and url need to be changed by configuring the application.yml accordingly
           Third Party Issue tracking API url should be configured in application.yml and current value is http://localhost:8080/v1/getIssues
           Logs files are inside logs/issueTracking.log
+          Since the third party API takes nearly two minutes of time , cron  job configured to run each and every 5 minutes and it is configurable in application.yml as                              cronExpression: "0 */5 * * * *" 
