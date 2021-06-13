@@ -26,4 +26,4 @@ Guide Lines
                     ]
                   }
     Note : Any rest client can be used or else can be consumed via swagger url as well --> http://localhost:9092/swagger-ui.html
-           "allion_home_test" collection need to be created in mongo db and need to be run in localhost , if not  url need to be changed accordingly
+           "allion_home_test" database need to be created in mongo db and need to be run in localhost , if not  url , database name need to be changed in application.yml accordingly 
