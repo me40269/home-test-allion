@@ -81,7 +81,7 @@ public class WeeklySummaryServiceImpl implements WeeklySummaryService {
     @Override
     public List<IssueTracker> constructProjectIssueSummary(String projectId) {
         List<IssueTracker> issueTrackerList = new ArrayList<>();
-        IssueTrackingResponseDto issueTrackingResponseDto = externalApiExecutorServiceImpl.getIssueInfo(projectId);
+        IssueTrackingResponseDto issueTrackingResponseDto =(IssueTrackingResponseDto) externalApiExecutorServiceImpl.getIssueInfo(projectId).getResponse();
         List<Issue> issueDtoList = issueTrackingResponseDto.getIssues();
         System.out.println(issueDtoList);
 

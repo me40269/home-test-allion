@@ -32,6 +32,7 @@ public class WeeklySummaryRequest {
     @Size(min = 1, message = "At least one type has to be specified")
     private List<String> types;
 
+    @Size(min = 1, message = "At least one state has to be specified")
     private List<String> states;
 
 }

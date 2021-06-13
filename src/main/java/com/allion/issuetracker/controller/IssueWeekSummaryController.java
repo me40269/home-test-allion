@@ -9,34 +9,32 @@ import com.allion.issuetracker.service.WeeklySummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+
 import java.util.Objects;
 
 @RestController
-public class IssueWeekSummaryController  implements IssueSummaryApi {
+public class IssueWeekSummaryController implements IssueSummaryApi {
     @Autowired
     WeeklySummaryService weeklySummaryService;
 
 
     @Override
-    public ResponseEntity<ProjectIssueSummary> getWeeklySummary( WeeklySummaryRequest weeklySummaryRequest) {
+    public ResponseEntity<ProjectIssueSummary> getWeeklySummary(WeeklySummaryRequest weeklySummaryRequest) {
         ProjectIssueSummary projectIssueSummary;
-        if(weeklySummaryService.checkExists(weeklySummaryRequest.getProjectId())) {
-             projectIssueSummary = weeklySummaryService.getWeeklySummary(weeklySummaryRequest);
+        if (weeklySummaryService.checkExists(weeklySummaryRequest.getProjectId())) {
+            projectIssueSummary = weeklySummaryService.getWeeklySummary(weeklySummaryRequest);
 
-        }else{
-           projectIssueSummary = weeklySummaryService.getAlternateWeeklySummary( weeklySummaryRequest);
+        } else {
+            projectIssueSummary = weeklySummaryService.getAlternateWeeklySummary(weeklySummaryRequest);
 
         }
-        if(Objects.isNull(projectIssueSummary))
+        if (Objects.isNull(projectIssueSummary))
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(projectIssueSummary, HttpStatus.OK);
 
     }
-
 
 
 }

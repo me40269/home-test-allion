@@ -17,7 +17,6 @@ public class WeekNumberUtil {
 
             YEAR_WEEK_FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
             date = YEAR_WEEK_FORMAT.parse(yearWeekCompound);
-            System.out.println("date is " + date);
             OUT_SIMPLE_DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
 
             return date;

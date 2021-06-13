@@ -21,7 +21,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationExceptions(
             MethodArgumentNotValidException mavException, HttpServletRequest request) {
-        return new ResponseEntity<>("Arguments are in correct", HttpStatus.BAD_REQUEST);
+        log.info("MethodArgumentNotValidException "+mavException.getMessage());
+        GenericResponse responseDTO =
+                new GenericResponse(HttpStatus.BAD_REQUEST, mavException.getMessage(), mavException.getClass());
+        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 
 
@@ -29,7 +32,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<?> handleValidationExceptions(
             HttpMessageNotReadableException handleValidationException, HttpServletRequest request) {
-        return new ResponseEntity<>("Arguments are in correct", HttpStatus.BAD_REQUEST);
+        GenericResponse responseDTO =
+                new GenericResponse(HttpStatus.BAD_REQUEST, handleValidationException.getMessage(), handleValidationException.getClass());
+        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

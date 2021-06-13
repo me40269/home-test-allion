@@ -16,6 +16,10 @@ public class GenericResponse {
     private Class exception;
     private Object response;
 
+    public GenericResponse() {
+
+    }
+
     public GenericResponse(HttpStatus httpStatusCode, String errorMsg, Class exception) {
         this.httpStatusCode = httpStatusCode;
         this.errorMsg = errorMsg;

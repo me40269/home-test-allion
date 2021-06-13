@@ -12,17 +12,6 @@ public class CustomIssueException extends RuntimeException {
         this.message = exceptionMsg;
     }
 
-    public CustomIssueException(String exceptionMsg, Class exception) {
-        super(exceptionMsg);
-        this.message = exceptionMsg;
-        this.exception = exception;
-    }
-
-    public CustomIssueException(String exceptionMsg, Throwable cause) {
-        super(exceptionMsg, cause);
-        this.message = exceptionMsg;
-    }
-
     @Override
     public String getMessage() {
         return message;

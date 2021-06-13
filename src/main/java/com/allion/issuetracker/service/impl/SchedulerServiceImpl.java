@@ -41,6 +41,8 @@ public class SchedulerServiceImpl {
                 projectIssueInfoRepository.updateProjectIssues(issueTrackerList);
             });
         }
-        System.out.println("testing");
+        else {
+            logger.debug("No need to call to the third party api as no project are retrieved yet");
+        }
     }
 }
