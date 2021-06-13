@@ -8,7 +8,7 @@ Guide Lines
         * ******************************
         *  gradlew clean build -x test *
         ********************************
-2.cd Issue-Tracker\build\libs
+2.cd home-test-allion\build\libs
 
 3 java -jar  issuetracker-0.0.1-SNAPSHOT.jar
 
