@@ -27,4 +27,4 @@ Guide Lines
                   }
    Note : Any rest client can be used or else can be consumed via swagger url as well --> http://localhost:9092/swagger-ui.html
           Mongo database is used in this project. "allion_home_test", localhost are the values for  database and  url respectively.if the database and url need to be changed by configuring the application.yml accordingly
-          third party issue tracking url should be configured in yml and current value is http://localhost:8080/v1/getIssues
+          third party issue tracking url should be configured in application.yml and current value is http://localhost:8080/v1/getIssues
