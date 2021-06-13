@@ -25,5 +25,5 @@ Guide Lines
                       "bug"
                     ]
                   }
-    Note : Any rest client can be used or else can be consumed via swagger url as well --> http://localhost:9092/swagger-ui.html
-           "allion_home_test" database need to be created in mongo db and need to be run in localhost , if not  url , database name need to be changed in application.yml accordingly 
+   Note : Any rest client can be used or else can be consumed via swagger url as well --> http://localhost:9092/swagger-ui.html
+          Mongo database is used in this project. "allion_home_test", localhost are the values for  database and  url respectively.if the database and url need to be changed by configuring the application.yml accordingly
