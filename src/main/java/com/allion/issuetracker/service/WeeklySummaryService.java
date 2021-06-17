@@ -15,5 +15,7 @@ public interface WeeklySummaryService {
 
   List<IssueTracker> constructProjectIssueSummary(String projectId);
 
+  ProjectIssueSummary updateWeeklySummary(WeeklySummaryRequest weeklySummaryRequest);
+
 
 }

@@ -1,20 +1,22 @@
 package com.allion.issuetracker.dto;
 
+import com.allion.issuetracker.model.ISSUE_STATE;
+import com.allion.issuetracker.model.ISSUE_TYPE;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import lombok.Builder;
 import lombok.Data;
+import redis.clients.jedis.Jedis;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.io.Serializable;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Data
 @Builder
 @ApiModel
-public class StateSummary {
+public class StateSummary implements Serializable {
     public int count;
 
     public List<IssueDto> issues;
