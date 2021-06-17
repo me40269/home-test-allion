@@ -4,6 +4,9 @@ spring:
       database: allion_home_test
       host: localhost
       port: 27017
+  redis:
+    host: localhost
+    port: 6379
 resilience4j.ratelimiter:
   instances:
     service1:

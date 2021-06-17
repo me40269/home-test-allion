@@ -5,12 +5,16 @@ import com.allion.issuetracker.exception.CustomIssueException;
 import com.allion.issuetracker.model.*;
 import com.allion.issuetracker.repository.ProjectIssueInfoRepository;
 import com.allion.issuetracker.repository.ProjectTrackingInfoRepository;
+import com.allion.issuetracker.repository.WeeklySummaryInfoRepository;
 import com.allion.issuetracker.service.WeeklySummaryService;
 import com.allion.issuetracker.utils.WeekNumberUtil;
 import com.allion.issuetracker.validator.RequestValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -28,11 +32,15 @@ public class WeeklySummaryServiceImpl implements WeeklySummaryService {
     ProjectTrackingInfoRepository projectTrackingInfoRepository;
 
     @Autowired
+    WeeklySummaryInfoRepository weeklySummaryInfoRepository;
+
+    @Autowired
     ExternalApiExecutorServiceImpl externalApiExecutorServiceImpl;
 
     @Override
+    @Cacheable(value = "weeklySummaryList", key = "#weeklySummaryRequest")
     public ProjectIssueSummary getWeeklySummary(WeeklySummaryRequest weeklySummaryRequest) {
-
+        logger.info("Calling to database to retrieve data ");
         Date fromDate = WeekNumberUtil.getFromYearWeek(weeklySummaryRequest.getFromWeek());
         Date toDate = WeekNumberUtil.getFromYearWeek(weeklySummaryRequest.getToWeek());
         String projectId = weeklySummaryRequest.getProjectId();
@@ -65,6 +73,7 @@ public class WeeklySummaryServiceImpl implements WeeklySummaryService {
 
 
     @Override
+    @Cacheable(value = "weeklySummaryList", key = "#weeklySummaryRequest")
     public ProjectIssueSummary getAlternateWeeklySummary(WeeklySummaryRequest weeklySummaryRequest) {
         String projectId = weeklySummaryRequest.getProjectId();
         logger.info("calling to third party API to retrieve project information");
@@ -72,10 +81,19 @@ public class WeeklySummaryServiceImpl implements WeeklySummaryService {
         if (Objects.isNull(projectId) || issueTrackerList.size() == 0)
             return null;
         projectIssueInfoRepository.saveProjectIssues(issueTrackerList);
+        //those value be used to update the cache time to time when database updated with new values from the third party api
+        saveWeeklySummaryRequest(weeklySummaryRequest);
 
         //Saving the project id into this collection to call third party api time to time via scheduler
         projectTrackingInfoRepository.saveProjectId(new ProjectTrackingInfo(projectId));
         return getWeeklySummary(weeklySummaryRequest);
+    }
+
+    private void saveWeeklySummaryRequest(WeeklySummaryRequest weeklySummaryRequest) {
+        WeeklySummaryInfo weeklySummaryInfo = new WeeklySummaryInfo();
+        BeanUtils.copyProperties(weeklySummaryRequest,weeklySummaryInfo);
+        weeklySummaryInfoRepository.saveWeeklySummaryInfoRequests(weeklySummaryInfo);
+
     }
 
     @Override
@@ -91,6 +109,13 @@ public class WeeklySummaryServiceImpl implements WeeklySummaryService {
             issueTrackerList.add(projectIssue);
         });
         return issueTrackerList;
+    }
+
+    //This method is added to update the cache via scheduler service
+    @Override
+    @CachePut(value = "weeklySummaryList", key = "#weeklySummaryRequest")
+    public ProjectIssueSummary updateWeeklySummary(WeeklySummaryRequest weeklySummaryRequest) {
+           return getWeeklySummary(weeklySummaryRequest);
     }
 
 
